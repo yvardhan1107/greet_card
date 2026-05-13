@@ -10,6 +10,7 @@ export default function CategoryChips({ active, onChange }) {
             onClick={() => onChange(cat.value)}
             className={`chip ${active === cat.value ? 'chip-active' : ''}`}
           >
+            <span>{cat.icon}</span>
             {cat.label}
           </button>
         ))}

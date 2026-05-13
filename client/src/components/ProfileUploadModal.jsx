@@ -35,22 +35,31 @@ export default function ProfileUploadModal({ isOpen, onClose }) {
 
   return (
     <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
-      <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)' }} />
-      <div onClick={(e) => e.stopPropagation()} className="fade-in"
-        style={{ position: 'relative', width: '100%', maxWidth: 340, background: 'white', borderRadius: 16, padding: 28, textAlign: 'center' }}>
+      <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }} />
+      <div onClick={(e) => e.stopPropagation()} className="fade-in glass-modal"
+        style={{ position: 'relative', width: '100%', maxWidth: 340, padding: 28, textAlign: 'center' }}>
 
-        <button onClick={onClose} style={{ position: 'absolute', top: 12, right: 12, background: 'none', border: 'none', color: '#9ca3af' }}>
+        <button onClick={onClose} style={{ position: 'absolute', top: 12, right: 12, background: 'none', border: 'none', color: '#64748b' }}>
           <HiX size={18} />
         </button>
 
-        <h3 style={{ fontSize: 18, fontWeight: 700, color: '#111827', marginBottom: 4 }}>Add your photo</h3>
-        <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 20 }}>It'll appear on your greeting cards</p>
+        <h3 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', marginBottom: 4, fontFamily: 'Outfit, sans-serif' }}>Add your photo</h3>
+        <p style={{ fontSize: 13, color: '#94a3b8', marginBottom: 20 }}>It'll appear on your greeting cards</p>
 
         <div onClick={() => fileRef.current?.click()}
-          style={{ width: 100, height: 100, borderRadius: '50%', border: '2px dashed #d1d5db', margin: '0 auto 20px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', overflow: 'hidden' }}>
+          style={{
+            width: 100, height: 100, borderRadius: '50%',
+            border: '2px dashed rgba(148, 163, 184, 0.25)',
+            margin: '0 auto 20px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer', overflow: 'hidden',
+            background: 'rgba(30, 41, 59, 0.5)',
+            transition: 'border-color 0.2s',
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.borderColor = '#7c3aed'}
+          onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(148, 163, 184, 0.25)'}>
           {preview?.url
             ? <img src={preview.url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            : <HiCamera style={{ fontSize: 28, color: '#9ca3af' }} />
+            : <HiCamera style={{ fontSize: 28, color: '#64748b' }} />
           }
         </div>
         <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} style={{ display: 'none' }} />

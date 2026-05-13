@@ -40,17 +40,30 @@ export default function Home() {
   useEffect(() => { fetchTemplates(); }, [fetchTemplates]);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f9fafb' }}>
+    <div style={{ minHeight: '100vh', background: '#0b0f1a', position: 'relative', overflow: 'hidden' }}>
+      {/* Background orbs */}
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+
       <Navbar onSearch={setSearch} />
 
-      <main style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
+      <main style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px', position: 'relative', zIndex: 1 }}>
         {/* Hero */}
-        <div style={{ textAlign: 'center', padding: '40px 0 8px' }}>
-          <h1 style={{ fontSize: 28, fontWeight: 700, color: '#111827' ,fontFamily: 'georgia'}}>
-            Create Personalized Greeting Cards
+        <div style={{ textAlign: 'center', padding: '48px 0 8px' }}>
+          <h1 style={{
+            fontSize: 36, fontWeight: 800, fontFamily: 'Outfit, sans-serif',
+            lineHeight: 1.2, marginBottom: 12,
+          }}>
+            <span className="gradient-text">Create Stunning</span>
+            <br />
+            <span style={{ color: '#f1f5f9' }}>Greeting Cards</span>
           </h1>
-          <p style={{ fontSize: 15, color: '#6b7280', marginTop: 8, maxWidth: 480, margin: '8px auto 0' , fontFamily: 'georgia'}}>
-            Pick a template, see your photo and name appear instantly, then download or share.
+          <p style={{
+            fontSize: 15, color: '#94a3b8', maxWidth: 480, margin: '0 auto',
+            lineHeight: 1.6,
+          }}>
+            Pick a template, see your photo and name appear instantly,
+            then download or share with anyone.
           </p>
         </div>
 
@@ -59,7 +72,7 @@ export default function Home() {
 
         {/* Count */}
         {!loading && (
-          <p style={{ fontSize: 13, color: '#9ca3af', marginBottom: 12 }}>
+          <p style={{ fontSize: 13, color: '#64748b', marginBottom: 12 }}>
             {templates.length} template{templates.length !== 1 ? 's' : ''}
             {category ? ` in ${category}` : ''}
             {search ? ` matching "${search}"` : ''}
@@ -69,24 +82,26 @@ export default function Home() {
         {/* Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-          gap: 16,
-          paddingBottom: 40,
+          gridTemplateColumns: 'repeat(auto-fill, minmax(230px, 1fr))',
+          gap: 18,
+          paddingBottom: 48,
         }}>
           {loading
             ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
-            : templates.map((t) => (
-                <TemplateCard key={t._id} template={t} onPremiumClick={() => setPremiumOpen(true)} />
+            : templates.map((t, i) => (
+                <div key={t._id} className="slide-up" style={{ animationDelay: `${i * 0.05}s` }}>
+                  <TemplateCard template={t} onPremiumClick={() => setPremiumOpen(true)} />
+                </div>
               ))
           }
         </div>
 
         {/* Empty state */}
         {!loading && templates.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '60px 0' }}>
-            <p style={{ fontSize: 32, marginBottom: 8 }}>🎨</p>
-            <h3 style={{ fontSize: 16, fontWeight: 600, color: '#374151' }}>No templates found</h3>
-            <p style={{ fontSize: 14, color: '#9ca3af', marginTop: 4 }}>Try a different category or search term</p>
+          <div className="fade-in" style={{ textAlign: 'center', padding: '60px 0' }}>
+            <p style={{ fontSize: 40, marginBottom: 12 }}>🎨</p>
+            <h3 style={{ fontSize: 18, fontWeight: 600, color: '#e2e8f0', fontFamily: 'Outfit, sans-serif' }}>No templates found</h3>
+            <p style={{ fontSize: 14, color: '#64748b', marginTop: 6 }}>Try a different category or search term</p>
           </div>
         )}
       </main>

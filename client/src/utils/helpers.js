@@ -33,13 +33,13 @@ export const downloadCanvasImage = (canvas, filename = 'greeting-card.png') => {
 };
 
 export const categories = [
-  { label: 'All', value: '' },
-  { label: 'Birthday', value: 'Birthday' },
-  { label: 'Anniversary', value: 'Anniversary' },
-  { label: 'Festivals', value: 'Festivals' },
-  { label: 'Shayari', value: 'Shayari' },
-  { label: 'Joke', value: 'Joke' },
-  { label: 'Updesh', value: 'Updesh' },
-  { label: 'Love', value: 'Love' },
-  { label: 'Trending', value: 'Trending' },
+  { label: 'All', value: '', icon: '✨' },
+  { label: 'Birthday', value: 'Birthday', icon: '🎂' },
+  { label: 'Anniversary', value: 'Anniversary', icon: '💍' },
+  { label: 'Festivals', value: 'Festivals', icon: '🪔' },
+  { label: 'Shayari', value: 'Shayari', icon: '📝' },
+  { label: 'Joke', value: 'Joke', icon: '😂' },
+  { label: 'Updesh', value: 'Updesh', icon: '🙏' },
+  { label: 'Love', value: 'Love', icon: '❤️' },
+  { label: 'Trending', value: 'Trending', icon: '🔥' },
 ];

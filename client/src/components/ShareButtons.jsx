@@ -33,7 +33,7 @@ export default function ShareButtons({ canvasRef, templateTitle }) {
         <FaWhatsapp size={16} />
       </button>
       <button onClick={() => shareViaEmail(`${templateTitle} - Greeting Card`, 'I made this card for you!')}
-        className="btn btn-outline" style={{ padding: '10px 12px', color: '#3b82f6' }}>
+        className="btn btn-outline" style={{ padding: '10px 12px', color: '#60a5fa' }}>
         <HiMail size={16} />
       </button>
     </div>

@@ -30,9 +30,8 @@ export default function TemplatePreview() {
   }, [id, navigate, user]);
 
   if (loading) return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ width: 32, height: 32, border: '3px solid #e5e7eb', borderTopColor: '#4f46e5', borderRadius: '50%', animation: 'spin 0.6s linear infinite' }} />
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0b0f1a' }}>
+      <div className="spinner" />
     </div>
   );
 
@@ -40,14 +39,23 @@ export default function TemplatePreview() {
   const locked = template.isPremium && user?.subscriptionStatus !== 'premium';
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f9fafb' }}>
+    <div style={{ minHeight: '100vh', background: '#0b0f1a', position: 'relative', overflow: 'hidden' }}>
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+
       {/* Header */}
-      <header style={{ background: 'white', borderBottom: '1px solid #e5e7eb' }}>
-        <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 20px', height: 52, display: 'flex', alignItems: 'center', gap: 12 }}>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#6b7280', fontSize: 14 }}>
+      <header className="glass-navbar" style={{ position: 'sticky', top: 0, zIndex: 40 }}>
+        <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 20px', height: 56, display: 'flex', alignItems: 'center', gap: 12 }}>
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#94a3b8', fontSize: 14, transition: 'color 0.2s' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#e2e8f0'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#94a3b8'}>
             <HiArrowLeft /> Back
           </Link>
-          <h1 style={{ fontSize: 15, fontWeight: 600, color: '#111827', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{template.title}</h1>
+          <h1 style={{
+            fontSize: 15, fontWeight: 600, color: '#f1f5f9', flex: 1,
+            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+            fontFamily: 'Outfit, sans-serif',
+          }}>{template.title}</h1>
           {template.isPremium
             ? <span className="badge-premium">★ Pro</span>
             : <span className="badge-free">Free</span>
@@ -55,41 +63,53 @@ export default function TemplatePreview() {
         </div>
       </header>
 
-      <main style={{ maxWidth: 1000, margin: '0 auto', padding: '24px 20px' }}>
+      <main style={{ maxWidth: 1000, margin: '0 auto', padding: '24px 20px', position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 24 }}>
-          {/* On larger screens, side by side */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
 
             {/* Canvas */}
-            <div style={{ position: 'relative' }}>
+            <div className="fade-in" style={{ position: 'relative' }}>
               <PreviewCanvas ref={canvasRef} template={template} user={user} />
               {locked && (
-                <div style={{ position: 'absolute', inset: 0, background: 'rgba(255,255,255,0.8)', borderRadius: 14, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
-                  <HiLockClosed style={{ fontSize: 40, color: '#f59e0b' }} />
-                  <p style={{ fontWeight: 600, color: '#111827' }}>Premium Template</p>
+                <div style={{
+                  position: 'absolute', inset: 0, background: 'rgba(11, 15, 26, 0.8)',
+                  backdropFilter: 'blur(4px)', borderRadius: 14,
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12,
+                }}>
+                  <HiLockClosed className="pulse-glow" style={{ fontSize: 44, color: '#fbbf24' }} />
+                  <p style={{ fontWeight: 600, color: '#f1f5f9', fontFamily: 'Outfit, sans-serif' }}>Premium Template</p>
                   <button onClick={() => setPremiumOpen(true)} className="btn btn-primary">Unlock</button>
                 </div>
               )}
             </div>
 
             {/* Sidebar */}
-            <div>
-              <div style={{ background: 'white', border: '1px solid #e5e7eb', borderRadius: 14, padding: 20 }}>
-                <h2 style={{ fontSize: 18, fontWeight: 700, color: '#111827', marginBottom: 4 }}>{template.title}</h2>
-                <p style={{ fontSize: 13, color: '#9ca3af', marginBottom: 16 }}>Category: {template.category}</p>
+            <div className="fade-in" style={{ animationDelay: '0.1s' }}>
+              <div className="glass-modal" style={{ padding: 20 }}>
+                <h2 style={{ fontSize: 20, fontWeight: 700, color: '#f1f5f9', marginBottom: 4, fontFamily: 'Outfit, sans-serif' }}>{template.title}</h2>
+                <p style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>Category: {template.category}</p>
 
                 {user && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 12, background: '#f9fafb', borderRadius: 10, marginBottom: 16 }}>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: 10, padding: 12,
+                    background: 'rgba(30, 41, 59, 0.5)', borderRadius: 12, marginBottom: 16,
+                    border: '1px solid rgba(148, 163, 184, 0.08)',
+                  }}>
                     {user.profileImage ? (
                       <img src={user.profileImage} alt="" style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover' }} />
                     ) : (
-                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 600, fontSize: 14 }}>
+                      <div style={{
+                        width: 36, height: 36, borderRadius: '50%',
+                        background: 'linear-gradient(135deg, #7c3aed, #06b6d4)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: 'white', fontWeight: 600, fontSize: 14,
+                      }}>
                         {user.name?.charAt(0)?.toUpperCase()}
                       </div>
                     )}
                     <div>
-                      <p style={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>{user.name}</p>
-                      <p style={{ fontSize: 12, color: '#9ca3af' }}>Personalized for you</p>
+                      <p style={{ fontSize: 14, fontWeight: 600, color: '#f1f5f9' }}>{user.name}</p>
+                      <p style={{ fontSize: 12, color: '#64748b' }}>Personalized for you</p>
                     </div>
                   </div>
                 )}
@@ -98,8 +118,8 @@ export default function TemplatePreview() {
               </div>
 
               {!user && (
-                <div style={{ background: 'white', border: '1px solid #e5e7eb', borderRadius: 14, padding: 20, textAlign: 'center', marginTop: 16 }}>
-                  <p style={{ fontSize: 14, color: '#374151', marginBottom: 12 }}>Sign in to personalize with your photo</p>
+                <div className="glass-modal" style={{ padding: 20, textAlign: 'center', marginTop: 16 }}>
+                  <p style={{ fontSize: 14, color: '#cbd5e1', marginBottom: 12 }}>Sign in to personalize with your photo</p>
                   <Link to="/login" className="btn btn-primary">Sign in</Link>
                 </div>
               )}

@@ -41,25 +41,33 @@ export default function Login() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, background: '#f9fafb' }}>
-      <div className="fade-in" style={{ width: '100%', maxWidth: 400 }}>
+    <div style={{
+      minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: 20, background: '#0b0f1a', position: 'relative', overflow: 'hidden',
+    }}>
+      {/* Background orbs */}
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+      <div className="orb orb-3" />
+
+      <div className="fade-in" style={{ width: '100%', maxWidth: 400, position: 'relative', zIndex: 1 }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <span style={{ fontSize: 36 }}>🎨</span>
-          <h1 style={{ fontSize: 24, fontWeight: 700, color: '#111827', marginTop: 8 }}>Welcome back</h1>
-          <p style={{ fontSize: 14, color: '#6b7280', marginTop: 4 }}>Sign in to your GreetCraft account</p>
+          <span style={{ fontSize: 40 }}>🎨</span>
+          <h1 style={{ fontSize: 28, fontWeight: 800, color: '#f1f5f9', marginTop: 10, fontFamily: 'Outfit, sans-serif' }}>Welcome back</h1>
+          <p style={{ fontSize: 14, color: '#94a3b8', marginTop: 4 }}>Sign in to your GreetCraft account</p>
         </div>
 
         {/* Form */}
-        <div style={{ background: 'white', border: '1px solid #e5e7eb', borderRadius: 16, padding: 28 }}>
+        <div className="glass-modal" style={{ padding: 28 }}>
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: 16 }}>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#374151', marginBottom: 6 }}>Email</label>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#cbd5e1', marginBottom: 6 }}>Email</label>
               <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
                 placeholder="you@example.com" className="input" required />
             </div>
             <div style={{ marginBottom: 20 }}>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#374151', marginBottom: 6 }}>Password</label>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#cbd5e1', marginBottom: 6 }}>Password</label>
               <input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })}
                 placeholder="••••••••" className="input" required />
             </div>
@@ -70,9 +78,9 @@ export default function Login() {
 
           {/* Divider */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '20px 0' }}>
-            <div style={{ flex: 1, height: 1, background: '#e5e7eb' }} />
-            <span style={{ fontSize: 12, color: '#9ca3af' }}>or</span>
-            <div style={{ flex: 1, height: 1, background: '#e5e7eb' }} />
+            <div style={{ flex: 1, height: 1, background: 'rgba(148, 163, 184, 0.12)' }} />
+            <span style={{ fontSize: 12, color: '#64748b' }}>or</span>
+            <div style={{ flex: 1, height: 1, background: 'rgba(148, 163, 184, 0.12)' }} />
           </div>
 
           {/* Social buttons */}
@@ -86,9 +94,9 @@ export default function Login() {
           </div>
         </div>
 
-        <p style={{ textAlign: 'center', fontSize: 14, color: '#6b7280', marginTop: 20 }}>
+        <p style={{ textAlign: 'center', fontSize: 14, color: '#94a3b8', marginTop: 20 }}>
           Don't have an account?{' '}
-          <Link to="/register" style={{ color: '#4f46e5', fontWeight: 500 }}>Sign up</Link>
+          <Link to="/register" className="gradient-text" style={{ fontWeight: 600 }}>Sign up</Link>
         </p>
       </div>
     </div>

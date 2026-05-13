@@ -93,17 +93,35 @@ export default function TemplateCard({ template, onPremiumClick }) {
         />
         {!loaded && <div className="skeleton" style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }} />}
 
+        {/* Category badge overlay */}
+        <div style={{
+          position: 'absolute', top: 10, left: 10,
+          background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(8px)',
+          borderRadius: 100, padding: '4px 10px',
+          fontSize: 11, fontWeight: 500, color: '#e2e8f0',
+        }}>
+          {template.category}
+        </div>
+
+        {/* Premium lock */}
         {template.isPremium && user?.subscriptionStatus !== 'premium' && (
-          <div style={{ position: 'absolute', top: 10, right: 10, background: 'rgba(0,0,0,0.5)', borderRadius: '50%', padding: 6, display: 'flex' }}>
+          <div className="pulse-glow" style={{
+            position: 'absolute', top: 10, right: 10,
+            background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)',
+            borderRadius: '50%', padding: 7, display: 'flex',
+          }}>
             <HiLockClosed style={{ color: '#fbbf24', fontSize: 14 }} />
           </div>
         )}
       </div>
 
-      <div style={{ padding: '10px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ padding: '10px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ minWidth: 0 }}>
-          <h3 style={{ fontSize: 13, fontWeight: 600, color: '#111827', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{template.title}</h3>
-          <p style={{ fontSize: 12, color: '#9ca3af', marginTop: 2 }}>{template.category}</p>
+          <h3 style={{
+            fontSize: 13, fontWeight: 600, color: '#f1f5f9',
+            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+            fontFamily: 'Outfit, sans-serif',
+          }}>{template.title}</h3>
         </div>
         {template.isPremium
           ? <span className="badge-premium">★ Pro</span>
